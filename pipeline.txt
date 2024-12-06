@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clean env') {
+            steps {
+                sh "ls ./Tuto && rm -rf Tuto || echo ok"
+            }
+        }
+        stage('Get Source') {
+            steps {
+                sh 'git clone "https://github.com/OlivierLegros/Tuto"'
+            }
+        }
+        stage('Compile') {
+            when {
+                expression {params.Compile}
+                }
+            steps {
+                sh 'return 1'
+            }
+        }
+        stage('Launch') {
+            steps {
+                sh 'return 0'
+            }
+        }
+    }
+}
